@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id":"938052620bdd1f55","x":-540,"y":-220,"width":250,"height":60,"type":"text","text":"автоматизация "},
+		{"id":"461500a0ddaf3352","x":-540,"y":-80,"width":250,"height":61,"type":"text","text":"компьютера и личных данных "},
+		{"id":"111bd6009edf814f","x":-835,"y":-78,"width":250,"height":60,"type":"text","text":"духовный контент парикрамы "},
+		{"id":"dd340711e20a4a4c","x":-211,"y":-79,"width":250,"height":60,"type":"text","text":"Малати "},
+		{"id":"7fb5cd7d96648545","x":-540,"y":60,"width":250,"height":60,"type":"text","text":"контент по YOGALOVE"},
+		{"id":"1cb6b5a13f8c4e45","x":-533,"y":184,"width":250,"height":60,"type":"text","text":""},
+		{"id":"fe8d0f723e50712a","x":-283,"y":60,"width":250,"height":60,"type":"text","text":"контент по калуге "},
+		{"id":"4f7eb3ed0208eba6","x":-835,"y":60,"width":250,"height":60,"type":"text","text":"фестивали \n"}
+	],
+	"edges":[
+		{"id":"9c96dea3063a47c2","fromNode":"938052620bdd1f55","fromSide":"bottom","toNode":"461500a0ddaf3352","toSide":"top"},
+		{"id":"a71247688c5a0ad5","fromNode":"461500a0ddaf3352","fromSide":"left","toNode":"111bd6009edf814f","toSide":"right"},
+		{"id":"a59f9d4a2eb4e0d5","fromNode":"461500a0ddaf3352","fromSide":"right","toNode":"dd340711e20a4a4c","toSide":"left"},
+		{"id":"eb8f081fb7320098","fromNode":"461500a0ddaf3352","fromSide":"bottom","toNode":"7fb5cd7d96648545","toSide":"top"},
+		{"id":"d13968bb2ac32cc2","fromNode":"7fb5cd7d96648545","fromSide":"bottom","toNode":"1cb6b5a13f8c4e45","toSide":"top"},
+		{"id":"6392087485da197f","fromNode":"461500a0ddaf3352","fromSide":"bottom","toNode":"fe8d0f723e50712a","toSide":"top"},
+		{"id":"29cabd498e92c08e","fromNode":"461500a0ddaf3352","fromSide":"bottom","toNode":"4f7eb3ed0208eba6","toSide":"top"}
+	]
+}
