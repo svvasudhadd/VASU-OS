@@ -11,10 +11,14 @@
             "id": "7625faa898baefd7",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "Неделя.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Неделя"
             }
           }
         ]
@@ -186,8 +190,11 @@
   },
   "active": "7625faa898baefd7",
   "lastOpenFiles": [
-    "autopush.sh",
     "Главная.md",
+    "Дневник/2026-08-08.md",
+    "Неделя.md",
+    "Дневник",
+    "autopush.sh",
     "VASU-OS/index.md",
     "Мой Инстаграм/index.md",
     "План Феникс/index.md",
@@ -205,10 +212,8 @@
     "Фестивали",
     "Kaluga Camp",
     "Малати",
-    "VARADA",
     "VARADA/VARADA.md",
     "Малати/Малати.md",
-    "Без названия 1",
     "Без названия.canvas",
     "VASU OS/index.md",
     "Templates/project-template.md",
@@ -222,7 +227,6 @@
     "Мой Инстаграм/README.md",
     "План Феникс/README.md",
     "Автоматизация/README.md",
-    "Йога студия/README.md",
     "Без названия 1.canvas"
   ]
 }
