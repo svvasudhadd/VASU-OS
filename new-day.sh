@@ -18,6 +18,8 @@ declare -A MONTHS=(
 cat > "$FILE" <<EOF
 # $(date +%-d) ${MONTHS[$(date +%m)]} $(date +%Y)
 
+Утренний ритуал: [[Утро]]
+
 ## План дня
 - [ ]
 
