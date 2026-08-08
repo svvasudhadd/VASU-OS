@@ -4,67 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "8d043d0b029577e1",
+        "id": "1c3b72fde40d3c39",
         "type": "tabs",
         "children": [
           {
-            "id": "fc5d9e9a4c72ddc9",
+            "id": "7625faa898baefd7",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Без названия.canvas",
-                "viewState": {
-                  "x": -398,
-                  "y": 12,
-                  "zoom": -0.49960205711283157
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "Без названия"
-            }
-          }
-        ]
-      },
-      {
-        "id": "bdb70b4dd56e2280",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ea811ed231ef6d23",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "Без названия.canvas",
-                "options": {
-                  "collapse-filter": true,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": true,
-                  "colorGroups": [],
-                  "collapse-display": true,
-                  "showArrow": false,
-                  "textFadeMultiplier": 0,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1,
-                  "collapse-forces": true,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 1.3254539142403539,
-                  "close": true
-                }
-              },
+              "type": "graph",
+              "state": {},
               "icon": "lucide-git-fork",
-              "title": "Локальный граф"
+              "title": "Граф"
             }
           }
         ]
@@ -87,7 +37,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false,
+                "autoReveal": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
@@ -129,7 +79,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "4a13be86deae60ea",
@@ -234,9 +184,45 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "ea811ed231ef6d23",
+  "active": "7625faa898baefd7",
   "lastOpenFiles": [
+    "Главная.md",
+    "VASU-OS/index.md",
+    "Мой Инстаграм/index.md",
+    "План Феникс/index.md",
+    "Автоматизация/index.md",
+    "Йога студия/index.md",
+    "Фестивали/index.md",
+    "Kaluga Camp/index.md",
+    "Малати/index.md",
+    "VARADA/index.md",
+    "VASU-OS",
+    "Мой Инстаграм",
+    "План Феникс",
+    "Автоматизация",
+    "Йога студия",
+    "Фестивали",
+    "Kaluga Camp",
+    "Малати",
+    "VARADA",
+    "VARADA/VARADA.md",
+    "Малати/Малати.md",
+    "Без названия 1",
     "Без названия.canvas",
-    "Без названия.md"
+    "VASU OS/index.md",
+    "Templates/project-template.md",
+    "Фестивали/Автоматизация/index.md",
+    "Мой Инстаграм/Мой Инстаграм.md",
+    "План Феникс/План Феникс.md",
+    "Фестивали/Автоматизация/Автоматизация.md",
+    "Йога студия/Йога студия.md",
+    "Фестивали/Фестивали.md",
+    "Kaluga Camp/Kaluga Camp.md",
+    "Мой Инстаграм/README.md",
+    "План Феникс/README.md",
+    "Автоматизация/README.md",
+    "Йога студия/README.md",
+    "Фестивали/README.md",
+    "Без названия 1.canvas"
   ]
 }
