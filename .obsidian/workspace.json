@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Неделя.md",
+                "file": "Kaluga Camp/Kaluga Camp.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Неделя"
+              "title": "Kaluga Camp"
             }
           }
         ]
@@ -190,9 +190,11 @@
   },
   "active": "7625faa898baefd7",
   "lastOpenFiles": [
-    "Утро.md",
+    "Kaluga Camp/index.md",
+    "Kaluga Camp/Kaluga Camp.md",
     "Главная.md",
     "Неделя.md",
+    "Утро.md",
     "new-day.sh",
     "Дневник/2026-08-08.md",
     "Дневник",
@@ -203,7 +205,6 @@
     "Автоматизация/index.md",
     "Йога студия/index.md",
     "Фестивали/index.md",
-    "Kaluga Camp/index.md",
     "Малати/index.md",
     "VARADA/index.md",
     "VASU-OS",
@@ -226,7 +227,6 @@
     "Фестивали/Фестивали.md",
     "Kaluga Camp/Kaluga Camp.md",
     "Мой Инстаграм/README.md",
-    "План Феникс/README.md",
     "Без названия 1.canvas"
   ]
 }
