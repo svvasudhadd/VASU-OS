@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaluga Camp — тишина у нацпарка Угра</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "framer-motion": "https://cdn.jsdelivr.net/npm/framer-motion@11/+esm"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- SVG-фильтры настоящего Liquid Glass -->
+<svg width="0" height="0" style="position:absolute">
+  <filter id="glass-distortion" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="5" result="noise"/>
+    <feGaussianBlur in="noise" stdDeviation="2" result="blurred"/>
+    <feDisplacementMap in="SourceGraphic" in2="blurred" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="heat-haze" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence id="haze-turbulence" type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="2" seed="9" result="hazeNoise"/>
+    <feDisplacementMap in="SourceGraphic" in2="hazeNoise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<header class="navbar">
+  <div class="navbar__inner glass">
+    <a href="#hero" class="navbar__logo">Kaluga Camp</a>
+    <nav class="navbar__links">
+      <a href="#about" class="nav-chip"><span>О месте</span></a>
+      <a href="#stay" class="nav-chip"><span>Проживание</span></a>
+      <a href="#activities" class="nav-chip"><span>Активности</span></a>
+      <a href="#for-whom" class="nav-chip"><span>Для кого</span></a>
+      <a href="#footer" class="nav-chip"><span>Контакты</span></a>
+    </nav>
+    <a href="#booking" class="btn btn--primary btn--sm glass liquid-hover">Забронировать</a>
+  </div>
+</header>
+
+<section id="hero" class="hero">
+  <div class="hero__photo"></div>
+  <div class="hero__bg" id="hero-haze"></div>
+  <div class="hero__ember" id="ember-1"></div>
+  <div class="hero__ember" id="ember-2"></div>
+  <div class="hero__ember" id="ember-3"></div>
+
+  <div class="smoke smoke--1"></div>
+  <div class="smoke smoke--2"></div>
+  <div class="smoke smoke--3"></div>
+
+  <div class="blob-wrap--1">
+    <div class="blob blob--1 glass" id="blob-main"></div>
+  </div>
+  <div class="blob blob--2 glass"></div>
+  <div class="blob blob--3 glass"></div>
+
+  <div class="hero__content">
+    <div class="hero__title-wrap" id="hero-title-wrap">
+      <h1 class="hero__title" id="hero-title" aria-label="Kaluga Camp">Kaluga Camp</h1>
+      <div class="hero__title-glare"></div>
+    </div>
+    <p class="hero__subtitle">Камерный лесной глэмпинг на берегу реки, у нацпарка Угра.</p>
+    <a href="#booking" id="hero-cta" class="btn btn--primary glass liquid-hover">Забронировать</a>
+  </div>
+  <div class="hero__scroll">↓</div>
+</section>
+
+<section id="about" class="section" data-reveal>
+  <div class="section__inner">
+    <span class="section__eyebrow">О лагере</span>
+
+    <div class="slider" id="slider">
+      <div class="slider__track" id="slider-track">
+        <figure class="slider__slide placeholder-img placeholder-img--indigo">
+          <figcaption>здесь будет фото — закат</figcaption>
+        </figure>
+        <figure class="slider__slide placeholder-img placeholder-img--cobalt">
+          <figcaption>здесь будет фото — лес</figcaption>
+        </figure>
+        <figure class="slider__slide placeholder-img placeholder-img--capri">
+          <figcaption>здесь будет фото — вода</figcaption>
+        </figure>
+        <figure class="slider__slide has-photo"></figure>
+      </div>
+      <div class="slider__caption glass" data-hover-glass>
+        <p>Kaluga Camp стоит там, где лес встречается с рекой, на границе
+        национального парка «Угра». Здесь нет программы развлечений —
+        есть пространство, в котором ничего не нужно успевать.</p>
+      </div>
+      <button class="slider__arrow slider__arrow--prev glass liquid-hover" id="slider-prev" aria-label="Предыдущее фото">‹</button>
+      <button class="slider__arrow slider__arrow--next glass liquid-hover" id="slider-next" aria-label="Следующее фото">›</button>
+      <div class="slider__dots" id="slider-dots"></div>
+    </div>
+  </div>
+</section>
+
+<section id="stay" class="stay-scroll">
+  <div class="stay-scroll__pin">
+    <div class="section__inner stay-scroll__grid">
+      <div class="stay-scroll__media">
+        <div class="stay-scroll__media-fill has-photo" id="stay-media"></div>
+      </div>
+      <div class="stay-scroll__body glass liquid-hover" data-hover-glass>
+        <span class="section__eyebrow">Проживание</span>
+        <h2 class="stay-card__title">Сафари-шатёр</h2>
+        <p class="stay-card__text">
+          Деревянный подиум, настоящая кровать, тёплый свет вечером и звук
+          реки вместо города. Простор внутри и лес — снаружи.
+        </p>
+        <ul class="stay-amenities" id="stay-amenities">
+          <li>Баня на дровах</li>
+          <li>Йога-студия</li>
+          <li>Общая кухня</li>
+          <li>Велосипеды</li>
+        </ul>
+        <div class="stay-price" id="stay-price">
+          <span>от <strong>XXXX ₽</strong> / сутки</span>
+          <a href="#booking" class="btn btn--secondary glass liquid-hover">Забронировать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="activities" class="section" data-reveal>
+  <div class="section__inner">
+    <span class="section__eyebrow">Активности</span>
+    <div class="bento">
+      <div class="bento-item bento-item--large bento-item--photo glass liquid-hover" style="--bento-photo:url('images/banya-barrel.jpg')" data-hover-glass>
+        <div class="bento-item__icon">🔥</div>
+        <h3>Баня</h3>
+        <p>Баня на дровах с купелью — тепло после дня на воздухе.</p>
+      </div>
+      <div class="bento-item glass liquid-hover" data-hover-glass>
+        <div class="bento-item__icon">🧘</div>
+        <h3>Йога</h3>
+        <p>Практики на подиуме среди леса.</p>
+      </div>
+      <div class="bento-item glass liquid-hover" data-hover-glass>
+        <div class="bento-item__icon">🛶</div>
+        <h3>Сплавы</h3>
+        <p>По тихой воде вдоль нацпарка Угра.</p>
+      </div>
+      <div class="bento-item bento-item--wide glass liquid-hover" data-hover-glass>
+        <div class="bento-item__icon">🚲</div>
+        <h3>Велосипеды</h3>
+        <p>Лесные и полевые маршруты рядом с лагерем.</p>
+      </div>
+      <div class="bento-item glass liquid-hover" data-hover-glass>
+        <div class="bento-item__icon">🪵</div>
+        <h3>Костёр</h3>
+        <p>Вечер у огня с видом на реку.</p>
+      </div>
+      <div class="bento-item bento-item--photo glass liquid-hover" style="--bento-photo:url('images/boho-dinner.jpg')" data-hover-glass>
+        <div class="bento-item__icon">🍲</div>
+        <h3>Кухня</h3>
+        <p>Простая домашняя еда, общая чайная зона.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="for-whom" class="section section--accent" data-reveal>
+  <div class="section__inner">
+    <span class="section__eyebrow">Для кого</span>
+    <div class="cards-grid">
+      <div class="whom-card glass liquid-hover" data-hover-glass>
+        <h3>Женские ретриты</h3>
+        <p>Тишина и практики в кругу женщин.</p>
+      </div>
+      <div class="whom-card glass liquid-hover" data-hover-glass>
+        <h3>Корпоративы</h3>
+        <p>Перезагрузка для команды вне офиса.</p>
+      </div>
+      <div class="whom-card glass liquid-hover" data-hover-glass>
+        <h3>Семьи и друзья</h3>
+        <p>Отдых на природе без лишней анимации.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="section" data-reveal>
+  <div class="section__inner section__inner--narrow">
+    <span class="section__eyebrow">Бронирование</span>
+    <form class="booking-form glass" id="booking-form" data-hover-glass>
+      <div class="form-row">
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
+      </div>
+      <div class="form-row">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+      </div>
+      <div class="form-row form-row--split">
+        <div>
+          <label for="date-in">Заезд</label>
+          <input type="date" id="date-in" name="date-in" required>
+        </div>
+        <div>
+          <label for="date-out">Выезд</label>
+          <input type="date" id="date-out" name="date-out" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn--primary btn--full glass liquid-hover">Отправить заявку</button>
+      <p class="booking-form__note" id="booking-note"></p>
+    </form>
+  </div>
+</section>
+
+<footer id="footer" class="footer" data-reveal>
+  <div class="footer__inner glass">
+    <span class="footer__logo">Kaluga Camp</span>
+    <div class="footer__contacts">
+      <span>+7 (900) 000-00-00</span>
+      <span>hello@kalugacamp.ru</span>
+    </div>
+    <div class="footer__social">
+      <a href="#" aria-label="VK" class="liquid-hover">VK</a>
+      <a href="#" aria-label="Instagram" class="liquid-hover">IG</a>
+      <a href="#" aria-label="Telegram" class="liquid-hover">TG</a>
+    </div>
+  </div>
+  <p class="footer__copy">© 2026 Kaluga Camp. Черновик сайта.</p>
+</footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

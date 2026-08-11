@@ -6,7 +6,15 @@
   "hideUnresolved": false,
   "showOrphans": true,
   "collapse-color-groups": false,
-  "colorGroups": [],
+  "colorGroups": [
+    {
+      "query": "path",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": true,
   "textFadeMultiplier": -0.4,
@@ -14,9 +22,9 @@
   "lineSizeMultiplier": 1.47114611260054,
   "collapse-forces": false,
   "centerStrength": 1,
-  "repelStrength": 18.7513340448239,
-  "linkStrength": 0,
-  "linkDistance": 81,
-  "scale": 1.5969023835929046,
+  "repelStrength": 17.1229996495736,
+  "linkStrength": 0.697026431718062,
+  "linkDistance": 224,
+  "scale": 1.267672567244995,
   "close": true
 }

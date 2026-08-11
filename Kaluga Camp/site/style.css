@@ -1,0 +1,888 @@
+:root {
+  --navy: #0b1020;
+  --cobalt: #1e3a8a;
+  --capri: #3b7ea8;
+  --sage: #4a7c59;
+  --mandarin: #e8823c;
+  --text-primary: #f4efe6;
+  --text-muted: #93a0b8;
+  --glass-fill: rgba(160, 190, 220, 0.07);
+  --glass-fill-strong: rgba(160, 190, 220, 0.12);
+  --radius: 22px;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition: 0.4s ease;
+  --section-padding: clamp(6rem, 14vw, 14rem);
+  --container: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(30, 58, 138, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 60%, rgba(59, 126, 168, 0.14), transparent 50%),
+    var(--navy);
+  color: var(--text-primary);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   LIQUID GLASS — настоящее преломление через SVG feTurbulence +
+   feDisplacementMap (см. <filter id="glass-distortion"> в index.html).
+   Первая строка backdrop-filter — фолбэк (обычный blur) для браузеров без
+   поддержки url()-фильтра в backdrop-filter; вторая перекрывает её там,
+   где поддержка есть. Невалидная строка отбрасывается каскадом целиком —
+   это штатная деградация, а не ошибка.
+   ========================================================================== */
+.glass {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(var(--glass-fill), var(--glass-fill)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.03) 35%, rgba(232, 130, 60, 0.3));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow:
+    inset 0 -10px 20px rgba(0, 0, 0, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: url(#glass-distortion) blur(3px) saturate(1.5);
+  transition: transform 0.4s var(--spring), box-shadow 0.5s ease;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 38%);
+  opacity: 0.6;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+/* ---------- Liquid Glass hover: пружинящее "вспухание" ---------- */
+.liquid-hover {
+  transition: transform 0.4s var(--spring), box-shadow 0.5s ease;
+}
+
+.liquid-hover:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow:
+    inset 0 -10px 20px rgba(0, 0, 0, 0.2),
+    0 20px 48px rgba(0, 0, 0, 0.4),
+    0 0 44px rgba(232, 130, 60, 0.4);
+}
+
+.liquid-hover:not(:hover) {
+  transition: transform 0.55s var(--spring), box-shadow 0.6s ease;
+}
+
+.liquid-hover:hover::before {
+  opacity: 1;
+}
+
+/* Карточки/плашки без .liquid-hover — тихий стеклянный подъём */
+.glass:not(.liquid-hover):hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 -10px 20px rgba(0, 0, 0, 0.22),
+    0 20px 48px rgba(0, 0, 0, 0.4),
+    0 0 36px rgba(232, 130, 60, 0.16);
+}
+
+.glass:not(.liquid-hover):hover::before {
+  opacity: 1;
+}
+
+/* ---------- Scroll reveal ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Начальное состояние карточек до JS-анимации появления (framer-motion) */
+.bento-item,
+.whom-card,
+.stay-card {
+  opacity: 0;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 20px 24px;
+}
+
+.navbar__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.navbar__logo {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--mandarin);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-chip {
+  position: relative;
+  padding: 8px 16px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.nav-chip span {
+  position: relative;
+  z-index: 1;
+  transition: color var(--transition);
+}
+
+.nav-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--glass-fill-strong);
+  border-radius: 999px;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 0.4s var(--spring), opacity 0.3s ease;
+}
+
+.nav-chip:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.nav-chip:hover span {
+  color: var(--text-primary);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 16px 36px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  color: var(--text-primary);
+}
+
+.btn--sm {
+  padding: 10px 22px;
+  font-size: 0.84rem;
+}
+
+.btn--primary {
+  color: var(--mandarin);
+}
+
+.btn--primary:hover {
+  color: #1a0f06;
+  background-image:
+    linear-gradient(rgba(232, 130, 60, 0.92), rgba(232, 130, 60, 0.92)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(232, 130, 60, 0.4));
+}
+
+.btn--secondary:hover {
+  color: var(--mandarin);
+}
+
+.btn--full {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: -10%;
+  z-index: -3;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(30, 58, 138, 0.35), transparent 50%),
+    radial-gradient(circle at 75% 25%, rgba(59, 126, 168, 0.25), transparent 55%),
+    linear-gradient(160deg, rgba(7, 10, 22, 0.82) 0%, rgba(11, 16, 32, 0.72) 55%, rgba(16, 24, 48, 0.82) 100%);
+  filter: url(#heat-haze);
+}
+
+/* Слой 1 — тёплое пульсирующее свечение (угли/костёр) */
+.hero__ember {
+  position: absolute;
+  left: 50%;
+  bottom: -20%;
+  width: 120%;
+  height: 60%;
+  transform: translateX(-50%);
+  z-index: -2;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(232, 130, 60, 0.5) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+#ember-1 { animation: emberPulse 4s ease-in-out infinite; }
+#ember-2 { animation: emberPulse 7s ease-in-out infinite; opacity: 0.7; }
+#ember-3 { animation: emberPulse 11s ease-in-out infinite; opacity: 0.5; }
+
+@keyframes emberPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Слой 2 — поднимающийся пар/дым */
+.smoke {
+  position: absolute;
+  bottom: 6%;
+  width: 220px;
+  height: 220px;
+  border-radius: 46% 54% 60% 40% / 55% 45% 55% 45%;
+  background: radial-gradient(circle at center, rgba(244, 239, 230, 0.22), transparent 70%);
+  filter: blur(50px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.smoke--1 { left: 20%; animation: smokeRise 9s ease-in infinite; }
+.smoke--2 { left: 48%; width: 180px; height: 180px; animation: smokeRise 12s ease-in infinite 2s; }
+.smoke--3 { left: 70%; width: 260px; height: 260px; animation: smokeRise 15s ease-in infinite 5s; }
+
+@keyframes smokeRise {
+  0% { opacity: 0; transform: translateY(0) scale(1); }
+  20% { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-320px) scale(1.4); }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.hero__title-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.hero__title {
+  position: relative;
+  font-size: clamp(3.4rem, 11vw, 7.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  white-space: normal;
+  filter: drop-shadow(0 0 36px rgba(232, 130, 60, 0.3));
+}
+
+/*
+  Заливка текста и анимация условно разделены на два вложенных элемента:
+  .letter (обёртка) отвечает за blur/scale/opacity-анимацию, .letter__fill —
+  за градиентную заливку через background-clip:text. Если применить и то,
+  и другое к одному элементу, Chrome промоутит его в отдельный composite-слой
+  из-за анимируемого filter/transform, и унаследованный текстовый клип
+  перестаёт быть виден (буквы становятся прозрачными) — так и было в первой
+  версии. background-position/size у .letter__fill выставляются в JS по
+  фактическому смещению буквы, чтобы градиент оставался цельным на весь
+  заголовок, а не рвался на каждой букве.
+*/
+.hero__title .letter {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(20px);
+  transform: scale(1.3);
+}
+
+.hero__title .letter--space {
+  width: 0.35em;
+}
+
+.hero__title .letter__fill {
+  display: inline-block;
+  background-image: linear-gradient(120deg, #fff8ef 0%, var(--mandarin) 30%, #fff3e2 55%, var(--mandarin) 78%, #fff8ef 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Курсор-реактивный блик поверх заголовка */
+.hero__title-glare {
+  position: absolute;
+  inset: -30% -15%;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.55), transparent 55%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero__title-wrap:hover .hero__title-glare {
+  opacity: 1;
+}
+
+.hero__title.title-glow {
+  animation: titleGlowPulse 2.4s ease-out 1;
+}
+
+@keyframes titleGlowPulse {
+  0% { filter: drop-shadow(0 0 60px rgba(232, 130, 60, 0.65)); }
+  100% { filter: drop-shadow(0 0 36px rgba(232, 130, 60, 0.3)); }
+}
+
+.hero__subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 480px;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  animation: bounce 2.4s infinite;
+  z-index: 2;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.4; }
+  50% { transform: translate(-50%, 10px); opacity: 0.9; }
+}
+
+/* ---------- Floating glass blobs ---------- */
+.blob-wrap--1 {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 320px;
+  height: 320px;
+  z-index: 1;
+}
+
+.blob--1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+  transition: transform 0.6s ease-out;
+}
+
+.blob--2 {
+  position: absolute;
+  bottom: 14%;
+  right: 12%;
+  width: 220px;
+  height: 220px;
+  border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%;
+  z-index: 1;
+}
+
+.blob--3 {
+  position: absolute;
+  top: 58%;
+  left: 68%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: var(--section-padding) 24px;
+}
+
+.section--accent {
+  background: linear-gradient(180deg, rgba(59, 126, 168, 0.04), transparent);
+}
+
+.section__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.section__inner--narrow {
+  max-width: 520px;
+}
+
+.section__eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--mandarin);
+  margin-bottom: 4rem;
+}
+
+/* ---------- Slider ---------- */
+.slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.slider__track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slider__slide {
+  flex: 0 0 100%;
+  height: 480px;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.84rem;
+}
+
+.slider__caption {
+  position: absolute;
+  left: 32px;
+  bottom: 32px;
+  max-width: 380px;
+  padding: 28px 32px;
+  z-index: 2;
+}
+
+.slider__caption p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.slider__arrow--prev { left: 16px; }
+.slider__arrow--next { right: 16px; }
+
+.slider__dots {
+  position: absolute;
+  bottom: 16px;
+  right: 32px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.slider__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.slider__dot.is-active {
+  background: var(--mandarin);
+  transform: scale(1.2);
+}
+
+/* ---------- Placeholder gradients — палитра Golden Mandarin ---------- */
+.placeholder-img {
+  background-size: 220% 220%;
+  animation: gradientShift 12s ease infinite;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.placeholder-img--indigo { background-image: linear-gradient(135deg, #1e3a8a, #e8823c, #0b1020); }
+.placeholder-img--cobalt { background-image: linear-gradient(135deg, #142654, #1e3a8a, #3b7ea8); }
+.placeholder-img--capri { background-image: linear-gradient(135deg, #1c3a44, #3b7ea8, #4a7c59); }
+.placeholder-img--mandarin { background-image: linear-gradient(135deg, #7a3d1e, #e8823c, #2c150d); }
+.placeholder-img--tent { background-image: linear-gradient(135deg, #14213d, #1e3a8a, #e8823c); }
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- Stay card ---------- */
+.stay-card__title {
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+}
+
+.stay-card__text {
+  color: var(--text-muted);
+}
+
+.stay-amenities {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.stay-amenities li {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+
+.stay-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stay-price strong {
+  color: var(--mandarin);
+  font-size: 1.3rem;
+}
+
+/* ---------- Bento grid ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 170px;
+  grid-auto-flow: dense;
+  gap: 20px;
+}
+
+.bento-item {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.bento-item--large { grid-column: span 2; grid-row: span 2; }
+.bento-item--wide { grid-column: span 2; }
+
+.bento-item__icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.bento-item h3 { font-size: 1.1rem; margin-bottom: 0.3em; }
+.bento-item p { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+
+/* ---------- For whom ---------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.whom-card { padding: 2.2rem; }
+.whom-card h3 { font-size: 1.1rem; }
+.whom-card p { color: var(--text-muted); font-size: 0.92rem; margin: 0; }
+
+/* ---------- Booking form ---------- */
+.booking-form {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row { display: flex; flex-direction: column; gap: 8px; }
+.form-row--split { flex-direction: row; gap: 18px; }
+.form-row--split > div { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+.booking-form label { font-size: 0.82rem; color: var(--text-muted); }
+
+.booking-form input {
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.booking-form input:focus {
+  outline: none;
+  border-color: var(--mandarin);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.booking-form__note {
+  min-height: 1.2em;
+  color: var(--mandarin);
+  font-size: 0.88rem;
+  margin: 0;
+  text-align: center;
+}
+
+/* ---------- Footer ---------- */
+.footer { padding: 3rem 24px 2rem; }
+
+.footer__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 28px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.footer__logo {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: var(--mandarin);
+  font-size: 1rem;
+}
+
+.footer__contacts {
+  display: flex;
+  gap: 24px;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.footer__social { display: flex; gap: 12px; }
+
+.footer__social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.footer__social a:hover {
+  background: rgba(232, 130, 60, 0.2);
+}
+
+.footer__copy {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  margin: 2rem 0 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .stay-card { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .bento-item--large { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .navbar__links { display: none; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: 1fr; }
+  .bento-item--large, .bento-item--wide { grid-column: span 1; }
+  .form-row--split { flex-direction: column; }
+  .slider__slide { height: 340px; }
+  .slider__caption { left: 16px; right: 16px; bottom: 16px; max-width: none; padding: 20px 22px; }
+
+  /* Упрощение слоистой анимации hero для мобильных: только один слой свечения + один дым */
+  .blob-wrap--1, .blob--2, .blob--3 { display: none; }
+  #ember-2, #ember-3 { display: none; }
+  .smoke--2, .smoke--3 { display: none; }
+  .hero__bg { filter: none; }
+}
+
+/* ---------- Реальные фото (временные референсы — заменить на съёмку территории) ---------- */
+.hero__photo {
+  position: absolute;
+  inset: -10%;
+  z-index: -4;
+  background-image: url('images/hero-tent-terrace.jpg');
+  background-size: cover;
+  background-position: center 65%;
+  filter: brightness(0.42) saturate(0.9);
+}
+
+.has-photo {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  animation: none;
+}
+
+.slider__slide.has-photo {
+  background-image:
+    linear-gradient(to top, rgba(6, 10, 20, 0.75), rgba(6, 10, 20, 0.05) 50%),
+    url('images/campfire-evening.jpg');
+}
+
+/* ---------- Проживание: сторителлинг-скролл (шатёр "собирается") ---------- */
+.stay-scroll {
+  position: relative;
+  min-height: 280vh;
+}
+
+.stay-scroll__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.stay-scroll__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+}
+
+.stay-scroll__media {
+  position: relative;
+  height: 68vh;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.stay-scroll__media-fill.has-photo {
+  background-image: url('images/hero-tent-terrace.jpg');
+}
+
+.stay-scroll__media-fill {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(calc((1 - var(--build, 0)) * 100%) 0 0 0);
+  filter: grayscale(calc(1 - var(--build, 0))) brightness(calc(0.55 + var(--build, 0) * 0.45));
+  transform: scale(calc(1.12 - var(--build, 0) * 0.12));
+}
+
+.stay-scroll__body {
+  padding: 3.4rem;
+}
+
+.stay-scroll__body .section__eyebrow {
+  margin-bottom: 1.2rem;
+}
+
+.stay-scroll__body .stay-amenities li,
+.stay-scroll__body .stay-price {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stay-scroll__body .stay-amenities li.is-active,
+.stay-scroll__body .stay-price.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .stay-scroll { min-height: auto; }
+  .stay-scroll__pin { position: static; height: auto; padding: 60px 0; }
+  .stay-scroll__grid { grid-template-columns: 1fr; }
+  .stay-scroll__media { height: 46vh; }
+  .stay-scroll__media-fill { clip-path: none; filter: none; transform: none; }
+  .stay-scroll__body .stay-amenities li,
+  .stay-scroll__body .stay-price { opacity: 1; transform: none; }
+}
+
+.bento-item--photo {
+  background-image:
+    linear-gradient(var(--glass-fill), var(--glass-fill)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.03) 35%, rgba(232, 130, 60, 0.3)),
+    linear-gradient(to top, rgba(6, 10, 20, 0.82), rgba(6, 10, 20, 0.15) 65%),
+    var(--bento-photo);
+  background-size: auto, auto, cover, cover;
+  background-position: 0 0, 0 0, center, center;
+  background-repeat: no-repeat;
+}
